@@ -1,0 +1,43 @@
+/**
+ * @name vcpkg Configuration Header
+ *
+ * @cite https://learn.microsoft.com/en-us/vcpkg/users/buildsystems/cmake-integration#settings-reference
+ * @brief vcpkg Settings Reference
+ * @file vcpkg-config.h
+ * @version @PROJECT_VERSION@
+ * @dir include/vcpkg
+ * @addtogroup vcpkg
+ *
+ * @details All vcpkg-affecting variables must be defined before the first project() directive such as in a CMakePresets.json's "cacheVariables" map, via the command line, or set() statements.
+ *
+ * @warning These definitions are liable to change between builds, and thus they should not be considered stable but might be useful for testing (with care)
+ *
+ * @todo
+*/
+
+
+#pragma once
+
+/** VCPKG Cache variables */
+
+#ifndef VCPKG_CONFIG_H_INCLUDED
+/** test whether the vcpkg-config.h file was (already) included */
+#define VCPKG_CONFIG_H_INCLUDED
+
+#cmakedefine VCPKG_TARGET_TRIPLET "@VCPKG_TARGET_TRIPLET@"
+#cmakedefine VCPKG_HOST_TRIPLET "@VCPKG_HOST_TRIPLET@"
+#cmakedefine VCPKG_INSTALLED_DIR "@VCPKG_INSTALLED_DIR@"
+#cmakedefine VCPKG_MANIFEST_MODE "@VCPKG_MANIFEST_MODE@"
+#cmakedefine VCPKG_MANIFEST_DIR "@VCPKG_MANIFEST_DIR@"
+#cmakedefine VCPKG_MANIFEST_INSTALL "@VCPKG_MANIFEST_INSTALL@"
+#cmakedefine VCPKG_BOOTSTRAP_OPTIONS "@VCPKG_BOOTSTRAP_OPTIONS@"
+#cmakedefine VCPKG_OVERLAY_TRIPLETS "@VCPKG_OVERLAY_TRIPLETS@"
+#cmakedefine VCPKG_OVERLAY_PORTS "@VCPKG_OVERLAY_PORTS@"
+#cmakedefine VCPKG_MANIFEST_FEATURES "@VCPKG_MANIFEST_FEATURES@"
+#cmakedefine VCPKG_MANIFEST_NO_DEFAULT_FEATURES "@VCPKG_MANIFEST_NO_DEFAULT_FEATURES@"
+#cmakedefine VCPKG_INSTALL_OPTIONS "@VCPKG_INSTALL_OPTIONS@"
+#cmakedefine VCPKG_PREFER_SYSTEM_LIBS "@VCPKG_PREFER_SYSTEM_LIBS@"
+#cmakedefine VCPKG_FEATURE_FLAGS "@VCPKG_FEATURE_FLAGS@"
+#cmakedefine VCPKG_TRACE_FIND_PACKAGE "@VCPKG_TRACE_FIND_PACKAGE@"
+
+#endif // VCPKG_CONFIG_H_INCLUDED

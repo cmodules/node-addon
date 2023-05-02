@@ -1,0 +1,10 @@
+prefix=C:/Program Files/cmodule
+exec_prefix=C:/Program Files/cmodule
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/cmodule
+
+Name: cmodule
+Description: NodeJS module written in C++
+Version: 1.0.1.20230429
+Libs: -L${libdir}
+CXXflags: -I${includedir}

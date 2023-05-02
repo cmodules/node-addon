@@ -1,0 +1,83 @@
+/**
+ * @name NodeJS Run-time Configuration Header
+ *
+ * @cite https://learn.microsoft.com/en-us/vcpkg/users/buildsystems/cmake-integration#settings-reference
+ * @brief vcpkg Settings Reference
+ * @file node-js-config.h
+ * @version @PROJECT_VERSION@
+ * @dir @PROJECT_BINARY_DIR@/include/node
+ * @addtogroup node
+ *
+ * @details All vcpkg-affecting variables must be defined before the first project() directive such as in a CMakePresets.json's "cacheVariables" map, via the command line, or set() statements.
+ *
+ * @warning These definitions are liable to change during runtime, and thus they should not be considered stable
+ *
+ * @todo
+*/
+
+#pragma once
+
+#ifndef NODE_JS_CONFIG_H_INCLUDED
+/** test whether the node-js-config.h file was (already) included */
+#define NODE_JS_CONFIG_H_INCLUDED
+
+
+/** When set to 'true', 1, 2, 3, or an empty string causes NO_COLOR and NODE_DISABLE_COLORS to be ignored. */
+#cmakedefine FORCE_COLOR @FORCE_COLOR@
+
+/** Alias for NODE_DISABLE_COLORS. */
+#cmakedefine NO_COLOR @NO_COLOR@
+
+/** ','-separated list of core modules that should print debug information. */
+#cmakedefine NODE_DEBUG "@NODE_DEBUG@"
+
+/** ','-separated list of C++ core debug categories that should print debug output. */
+#cmakedefine NODE_DEBUG_NATIVE "@NODE_DEBUG_NATIVE@"
+
+/** Set to 1 to disable colors in the REPL. */
+#cmakedefine NODE_DISABLE_COLORS @NODE_DISABLE_COLORS@
+
+/** path to additional CA certificates file. Only read once during process startup. */
+#cmakedefine NODE_EXTRA_CA_CERTS "@NODE_EXTRA_CA_CERTS@"
+
+/** set to 1 to silence process warnings. */
+#cmakedefine NODE_NO_WARNINGS @NODE_NO_WARNINGS@
+
+/** ';'-separated list of directories prefixed to the module search path. */
+#cmakedefine NODE_PATH "@NODE_PATH@"
+
+/** set to 1 to emit pending deprecation warnings. */
+#cmakedefine NODE_PENDING_DEPRECATION @NODE_PENDING_DEPRECATION@
+
+/** set the number of pending pipe instance handles on Windows. */
+#cmakedefine NODE_PENDING_PIPE_INSTANCES @NODE_PENDING_PIPE_INSTANCES@
+
+/** set to 1 to preserve symbolic links when resolving and caching modules. */
+#cmakedefine NODE_PRESERVE_SYMLINKS @NODE_PRESERVE_SYMLINKS@
+
+/** write warnings to path instead of stderr. */
+#cmakedefine NODE_REDIRECT_WARNINGS "@NODE_REDIRECT_WARNINGS@"
+
+/** path to a Node.js module which will be loaded in place of the built-in REPL. */
+#cmakedefine NODE_REPL_EXTERNAL_MODULE "@NODE_REPL_EXTERNAL_MODULE@"
+
+/** path to the persistent REPL history file. */
+#cmakedefine NODE_REPL_HISTORY "@NODE_REPL_HISTORY@"
+
+/** set to 1 to skip the check for a supported platform during Node.js startup. */
+#cmakedefine NODE_SKIP_PLATFORM_CHECK @NODE_SKIP_PLATFORM_CHECK@
+
+/** set to 0 to disable TLS certificate validation. */
+#cmakedefine NODE_TLS_REJECT_UNAUTHORIZED @NODE_TLS_REJECT_UNAUTHORIZED@
+
+/** directory to output v8 coverage JSON to. */
+#cmakedefine NODE_V8_COVERAGE "@NODE_V8_COVERAGE@"
+
+/** specify the timezone configuration */
+#cmakedefine TZ "@TZ@"
+
+/** sets the number of threads used in libuv's threadpool. */
+#cmakedefine UV_THREADPOOL_SIZE @UV_THREADPOOL_SIZE@
+
+
+#endif // NODE_JS_CONFIG_H_INCLUDED

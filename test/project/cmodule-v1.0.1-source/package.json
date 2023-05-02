@@ -1,0 +1,42 @@
+{
+  "name": "@cmodules/node-addon",
+  "version": "0.0.1",
+  "description": "My cmake-js module",
+  "license": "MIT",
+  "homepage": "https://github.io/cmodules/node-addon-api",
+  "private": true,
+
+  "author": {
+    "name": "Nathan J. Hood",
+    "email": "nathanjhood@googlemail.com",
+    "url": "http://stoneydsp.com"
+  },
+  "contributors": [
+    {
+      "name": "Nathan J. Hood",
+      "email": "nathanjhood@googlemail.com",
+      "url": "http://stoneydsp.com"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "Nathan J. Hood",
+      "email": "nathanjhood@googlemail.com",
+      "url": "http://stoneydsp.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cmodules/node-addon-api.git"
+  },
+  "readme": "https://github.com/cmodules/node-addon-api/main/README.md",
+  "bugs": {
+    "url": "https://github.com/cmodules/node-addon-api/issues"
+  },
+
+  "dependencies": {
+    "node-addon-api": "^6.1.0",
+    "node-api-headers": "^1.0.0"
+  }
+
+}
