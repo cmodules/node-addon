@@ -32,3 +32,11 @@ CMakeLists.txt text eol=lf
 # Keep the LICENCE file with LFs to make sure it is uploaded,
 # hashed etc with LF
 LICENCE eol=lf
+
+
+
+# vcpkg
+ports/** -linguist-detectable
+
+# Declare files that will always have LF line endings on checkout.
+scripts/ci.baseline.txt text eol=lf
