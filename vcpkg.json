@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+
+  "name": "node-addon",
+  "version-semver": "0.0.0",
+  "homepage": "https://github.io/cmodules/node-addon-api",
+  "builtin-baseline": "0720bffd449200d7d94a8e631861da4d68e5cef0",
+
+  "maintainers": [
+    "Nathan J. Hood <nathanjhood@googlemail.com> (http://stoneydsp.com)"
+  ],
+
+  "license": "MIT",
+
+  "dependencies": [
+		{
+			"name": "vcpkg-cmake",
+      "default-features": true,
+      "host": true
+		},
+		{
+			"name": "vcpkg-cmake-config",
+      "default-features": true,
+      "host": true
+		},
+		{
+			"name": "vcpkg-cmake-get-vars",
+      "default-features": true,
+      "host": true
+		},
+    {
+      "name": "vcpkg-tool-nodejs",
+      "default-features": true
+    },
+    {
+      "name": "node-api-headers",
+      "default-features": true
+    },
+    {
+      "name": "node-addon-api",
+      "default-features": true
+    }
+	],
+
+  "features": {
+
+    "c": {
+
+      "description": "Build native NodeJS modules in C",
+      "dependencies": ["node-api-headers"]
+
+    },
+
+    "cpp": {
+
+      "description": "Build native NodeJS modules in C++",
+      "dependencies": ["node-addon-api"]
+
+    }
+
+  }
+
+}
