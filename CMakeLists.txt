@@ -99,6 +99,9 @@ if (USE_VCPKG)
 
     set (VCPKG_DOWNLOADS "${CMAKE_CURRENT_LIST_DIR}/downloads")
 
+    set (VCPKG_INSTALLED_DIR "${CMAKE_CURRENT_LIST_DIR}/build")
+
+
     set (VCPKG_CRT_LINKAGE "dynamic")
 
     set (VCPKG_ROOT "${CMAKE_CURRENT_LIST_DIR}/.vcpkg")
@@ -317,7 +320,7 @@ set (PROJECT_VENDOR "cmodules")
 ## Create Project
 project ("node-addon" ${NODE_ADDON_LANGUAGES})
 
-set (PROJECT_BINARY_DIR ${PROJECT_SOURCE_DIR})
+set (PROJECT_BINARY_DIR "${PROJECT_SOURCE_DIR}/build/${VCPKG_TARGET_TRIPLET}")
 
 # Parse the vendor name into vars
 string (TOUPPER ${PROJECT_VENDOR} PROJECT_VENDOR_UPPER)
@@ -333,8 +336,11 @@ set (DEBUG_POSTFIX d CACHE STRING "Debug library postfix." FORCE)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
     set (${PROJECT_NAME_UPPER}_LIB_NAME ${PROJECT_NAME_LOWER}.${DEBUG_POSTFIX})
+
 else ()
+
     set (${PROJECT_NAME_UPPER}_LIB_NAME ${PROJECT_NAME_LOWER})
+
 endif ()
 
 execute_process (
@@ -367,12 +373,21 @@ configure_file (
 
 )
 
-set(MAIN_TEST_H_FILE "${PROJECT_BINARY_DIR}/include/main.h")
+set(MAIN_TEST_H_FILE "${PROJECT_BINARY_DIR}/include/${PROJECT_NAME}/main.h")
+set(MAIN_TEST_C_FILE "${PROJECT_BINARY_DIR}/src/main.cpp")
 
 configure_file (
 
-    ${CMAKE_CURRENT_LIST_DIR}/test/include/main.h
+    "${CMAKE_CURRENT_LIST_DIR}/test/project/cmodule-v1.0.1-source/include/cmodule/main.h"
     ${MAIN_TEST_H_FILE}
+    @ONLY
+
+)
+
+configure_file (
+
+    "${CMAKE_CURRENT_LIST_DIR}/test/project/cmodule-v1.0.1-source/src/main.cpp"
+    ${MAIN_TEST_C_FILE}
     @ONLY
 
 )
@@ -385,8 +400,8 @@ target_sources (${PROJECT_NAME}
 
     PUBLIC
 
-        "${CMAKE_CURRENT_LIST_DIR}/test/src/main.cpp"
         ${MAIN_TEST_H_FILE}
+        ${MAIN_TEST_C_FILE}
         "${PROJECT_BINARY_DIR}/include/node/node-js-config.h"
 
 )
@@ -412,14 +427,21 @@ set_target_properties (${PROJECT_NAME}
         PDB_OUTPUT_DIRECTORY bin
         PREFIX ""
         SUFFIX ".node"
-        DEBUG_POSTFIX ${${PROJECT_NAME_UPPER}_DEBUG_POSTFIX}
+        # DEBUG_POSTFIX ${${PROJECT_NAME_UPPER}_DEBUG_POSTFIX}
         # Add an interface compatibility check, to check linkage against (increasing VERSION_MAJOR is by definition a 'breaking change')
-        COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME_UPPER}_VERSION_MAJOR
-        INTERFACE_${PROJECT_NAME_UPPER}_VERSION_MAJOR ${${PROJECT_NAME}_VERSION_MAJOR}
+        # COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME_UPPER}_VERSION_MAJOR
+        # INTERFACE_${PROJECT_NAME_UPPER}_VERSION_MAJOR ${${PROJECT_NAME}_VERSION_MAJOR}
         # SOURCES
         # PUBLIC_HEADER
         # PRIVATE_HEADER
 
 )
+
+find_package(unofficial-node-api-headers CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE unofficial::node-api-headers::node-api-headers)
+
+
+find_package(unofficial-node-addon-api CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE unofficial::node-addon-api::node-addon-api)
 
 include(GetEnvVars)
