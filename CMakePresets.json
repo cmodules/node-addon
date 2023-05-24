@@ -7,5 +7,194 @@
     },
     "include": [
         "toolsrc/CMakePresets.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "build/${presetName}",
+            "installDir": "install/presetName}"
+        },
+        {
+            "name": "Debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "Release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "Windows",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Windows"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Linux",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Linux"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "macOS",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "macOS"
+                    ]
+                }
+            }
+        },
+
+        {
+            "name": "Windows-x64",
+            "hidden": true,
+            "inherits": "Windows",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "Linux-x64",
+            "hidden": true,
+            "inherits": "Linux",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            }
+        },
+        {
+            "name": "macOS-x64",
+            "hidden": true,
+            "inherits": "macOS",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            }
+        },
+
+        {
+            "name": "Windows-x64-Debug",
+            "inherits": [
+                "base",
+                "Windows-x64",
+                "Debug",
+                "vcpkg-Win-x64-Debug"
+            ]
+        },
+        {
+            "name": "Linux-x64-Debug",
+            "inherits": [
+                "base",
+                "Linux-x64",
+                "Debug",
+                "vcpkg-Linux-x64-Debug"
+            ]
+        },
+        {
+            "name": "MacOS-x64-Debug",
+            "inherits": [
+                "base",
+                "macOS-x64",
+                "Debug",
+                "vcpkg-Macos-x64-Debug"
+            ]
+        },
+
+        {
+            "name": "Windows-x64-Release",
+            "inherits": [
+                "base",
+                "Windows-x64",
+                "Release"
+            ]
+        },
+        {
+            "name": "Linux-x64-Release",
+            "inherits": [
+                "base",
+                "Linux-x64",
+                "Release"
+            ]
+        },
+        {
+            "name": "macOS-x64-Release",
+            "inherits": [
+                "base",
+                "macOS-x64",
+                "Release"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Windows-x64-Debug",
+            "configurePreset": "Windows-x64-Debug"
+        },
+        {
+            "name": "Linux-x64-Debug",
+            "configurePreset": "Linux-x64-Debug"
+        },
+        {
+            "name": "macOS-x64-Debug",
+            "configurePreset": "macOS-x64-Debug"
+        },
+        {
+            "name": "Windows-x64-Release",
+            "configurePreset": "Windows-x64-Release"
+        },
+        {
+            "name": "Linux-x64-Release",
+            "configurePreset": "Linux-x64-Release"
+        },
+        {
+            "name": "macOS-x64-Release",
+            "configurePreset": "macOS-x64-Release"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "Windows-x64-Debug",
+            "configurePreset": "Windows-x64-Debug"
+        },
+        {
+            "name": "Linux-x64-Debug",
+            "configurePreset": "Linux-x64-Debug"
+        },
+        {
+            "name": "macOS-x64-Debug",
+            "configurePreset": "macOS-x64-Debug"
+        },
+        {
+            "name": "Windows-x64-Release",
+            "configurePreset": "Windows-x64-Release"
+        },
+        {
+            "name": "Linux-x64-Release",
+            "configurePreset": "Linux-x64-Release"
+        },
+        {
+            "name": "macOS-x64-Release",
+            "configurePreset": "macOS-x64-Release"
+        }
     ]
 }
