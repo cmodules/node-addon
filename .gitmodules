@@ -1,0 +1,3 @@
+[submodule "toolsrc"]
+	path = toolsrc
+	url = ../../cmodules/vcpkg-tool.git
