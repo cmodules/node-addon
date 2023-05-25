@@ -13,9 +13,55 @@
             "name": "base",
             "hidden": true,
             "generator": "Ninja",
-            "binaryDir": "build/${presetName}",
-            "installDir": "install/presetName}"
+            "binaryDir": "buildtrees/${presetName}",
+            "installDir": "${sourceDir}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_BINDIR": "${sourceDir}",
+                // "CMAKE_INSTALL_LIBDIR": "${sourceDir}"
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}"
+            },
+            "environment": {
+                "VCPKG_ROOT": "${fileDir}"
+            }
         },
+
+        {
+            "name": "clang",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            }
+        },
+
+        {
+            "name": "cl",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl"
+            }
+        },
+
+        {
+            "name": "clang-cl",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl"
+            }
+        },
+
+        {
+            "name": "gnu",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            }
+        },
+
         {
             "name": "Debug",
             "hidden": true,
@@ -33,6 +79,10 @@
         {
             "name": "Windows",
             "hidden": true,
+            "toolchainFile": "scripts/toolchains/windows.cmake",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "scripts/toolchains/windows.cmake"
+            },
             "vendor": {
                 "microsoft.com/VisualStudioSettings/CMake/1.0": {
                     "hostOS": [
@@ -44,6 +94,10 @@
         {
             "name": "Linux",
             "hidden": true,
+            "toolchainFile": "scripts/toolchains/linux.cmake",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "scripts/toolchains/linux.cmake"
+            },
             "vendor": {
                 "microsoft.com/VisualStudioSettings/CMake/1.0": {
                     "hostOS": [
@@ -55,6 +109,10 @@
         {
             "name": "macOS",
             "hidden": true,
+            "toolchainFile": "scripts/toolchains/osx.cmake",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "scripts/toolchains/osx.cmake"
+            },
             "vendor": {
                 "microsoft.com/VisualStudioSettings/CMake/1.0": {
                     "hostOS": [
@@ -125,7 +183,8 @@
             "inherits": [
                 "base",
                 "Windows-x64",
-                "Release"
+                "Release",
+                "vcpkg-Win-x64-Release"
             ]
         },
         {
@@ -133,7 +192,8 @@
             "inherits": [
                 "base",
                 "Linux-x64",
-                "Release"
+                "Release",
+                "vcpkg-Linux-x64-Release"
             ]
         },
         {
@@ -141,60 +201,223 @@
             "inherits": [
                 "base",
                 "macOS-x64",
-                "Release"
+                "Release",
+                "vcpkg-Macos-x64-Release"
             ]
+        },
+        {
+            "name": "windows-ci",
+            "inherits": [
+                "base",
+                "Windows-x64",
+                "Debug",
+                "vcpkg-windows-ci"
+            ],
+            "cacheVariables": {
+                "VCPKG_WARNINGS_AS_ERRORS": true
+            }
+        },
+        {
+            "name": "linux-ci",
+            "inherits": [
+                "base",
+                "Linux-x64",
+                "Debug",
+                "vcpkg-linux-ci"
+            ],
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-fprofile-arcs -fPIC -O0 -fsanitize=undefined -fsanitize=address",
+                "CMAKE_EXE_LINKER_FLAGS": "-static-libsan",
+                "VCPKG_WARNINGS_AS_ERRORS": true
+            }
+        },
+        {
+            "name": "macos-ci",
+            "inherits": [
+                "base",
+                "macOS-x64",
+                "Debug",
+                "vcpkg-macos-ci"
+            ],
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-fsanitize=undefined -fsanitize=address",
+                "CMAKE_OSX_DEPLOYMENT_TARGET": "10.13",
+                "CMAKE_EXE_LINKER_FLAGS": "-static-libsan",
+                "VCPKG_WARNINGS_AS_ERRORS": true
+            }
         }
     ],
     "buildPresets": [
         {
+            "name": "Windows",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Windows"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Linux",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Linux"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "macOS",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "macOS"
+                    ]
+                }
+            }
+        },
+        {
             "name": "Windows-x64-Debug",
-            "configurePreset": "Windows-x64-Debug"
+            "configurePreset": "Windows-x64-Debug",
+            "inherits": ["Windows"]
         },
         {
             "name": "Linux-x64-Debug",
-            "configurePreset": "Linux-x64-Debug"
+            "configurePreset": "Linux-x64-Debug",
+            "inherits": ["Linux"]
         },
         {
             "name": "macOS-x64-Debug",
-            "configurePreset": "macOS-x64-Debug"
+            "configurePreset": "macOS-x64-Debug",
+            "inherits": ["macOS"]
         },
         {
             "name": "Windows-x64-Release",
-            "configurePreset": "Windows-x64-Release"
+            "configurePreset": "Windows-x64-Release",
+            "inherits": ["Windows"]
         },
         {
             "name": "Linux-x64-Release",
-            "configurePreset": "Linux-x64-Release"
+            "configurePreset": "Linux-x64-Release",
+            "inherits": ["Linux"]
         },
         {
             "name": "macOS-x64-Release",
-            "configurePreset": "macOS-x64-Release"
+            "configurePreset": "macOS-x64-Release",
+            "inherits": ["macOS"]
+        },
+        {
+            "name": "windows-ci",
+            "configurePreset": "windows-ci",
+            "inherits": ["Windows"]
+        },
+        {
+            "name": "linux-ci",
+            "configurePreset": "linux-ci",
+            "inherits": ["Linux"]
+        },
+        {
+            "name": "macos-ci",
+            "configurePreset": "macos-ci",
+            "inherits": ["macOS"]
         }
     ],
     "testPresets": [
         {
+            "name": "Windows",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Windows"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Linux",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Linux"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "macOS",
+            "hidden": true,
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "macOS"
+                    ]
+                }
+            }
+        },
+        {
             "name": "Windows-x64-Debug",
-            "configurePreset": "Windows-x64-Debug"
+            "configurePreset": "Windows-x64-Debug",
+            "inherits": ["Windows"]
         },
         {
             "name": "Linux-x64-Debug",
-            "configurePreset": "Linux-x64-Debug"
+            "configurePreset": "Linux-x64-Debug",
+            "inherits": ["Linux"]
         },
         {
             "name": "macOS-x64-Debug",
-            "configurePreset": "macOS-x64-Debug"
+            "configurePreset": "macOS-x64-Debug",
+            "inherits": ["macOS"]
         },
         {
             "name": "Windows-x64-Release",
-            "configurePreset": "Windows-x64-Release"
+            "configurePreset": "Windows-x64-Release",
+            "inherits": ["Windows"]
         },
         {
             "name": "Linux-x64-Release",
-            "configurePreset": "Linux-x64-Release"
+            "configurePreset": "Linux-x64-Release",
+            "inherits": ["Linux"]
         },
         {
             "name": "macOS-x64-Release",
-            "configurePreset": "macOS-x64-Release"
+            "configurePreset": "macOS-x64-Release",
+            "inherits": ["macOS"]
+        },
+        {
+            "name": "windows-ci",
+            "configurePreset": "windows-ci",
+            "inherits": ["Windows"]
+        },
+        {
+            "name": "linux-ci",
+            "configurePreset": "linux-ci",
+            "inherits": ["Linux"]
+        },
+        {
+            "name": "macos-ci",
+            "configurePreset": "macos-ci",
+            "inherits": ["macOS"]
         }
-    ]
+    ],
+    "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+            "hostOS": [
+                "Windows",
+                "Linux",
+                "macOS"
+            ],
+            "intelliSenseOptions": {
+                "useCompilerDefaults": true
+            },
+            "cacheRoot": "build/${presetName}"
+        }
+    }
 }
