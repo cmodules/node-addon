@@ -96,7 +96,6 @@ set_target_properties (configuration
         LIBRARY_OUTPUT_DIRECTORY lib
         ARCHIVE_OUTPUT_DIRECTORY lib
         PDB_OUTPUT_DIRECTORY     bin
-        VERSION ${${PROJECT_NAME}_VERSION}
 )
 
 
@@ -146,7 +145,6 @@ set_target_properties (implementation
         LIBRARY_OUTPUT_DIRECTORY lib
         ARCHIVE_OUTPUT_DIRECTORY lib
         PDB_OUTPUT_DIRECTORY     bin
-        VERSION ${${PROJECT_NAME}_VERSION}
 )
 
 
@@ -193,7 +191,6 @@ set_target_properties (static
         LIBRARY_OUTPUT_DIRECTORY lib
         ARCHIVE_OUTPUT_DIRECTORY lib
         PDB_OUTPUT_DIRECTORY     bin
-        VERSION ${${PROJECT_NAME}_VERSION}
 )
 
 target_link_libraries (static
@@ -246,7 +243,6 @@ set_target_properties (shared
         LIBRARY_OUTPUT_DIRECTORY lib
         ARCHIVE_OUTPUT_DIRECTORY lib
         PDB_OUTPUT_DIRECTORY     bin
-        VERSION ${${PROJECT_NAME}_VERSION}
 )
 
 target_link_libraries (shared
@@ -311,7 +307,6 @@ set_target_properties (executable
         LIBRARY_OUTPUT_DIRECTORY lib
         ARCHIVE_OUTPUT_DIRECTORY lib
         PDB_OUTPUT_DIRECTORY     bin
-        VERSION ${${PROJECT_NAME}_VERSION}
 )
 
 target_link_libraries (executable
