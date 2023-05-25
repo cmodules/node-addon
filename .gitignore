@@ -1,6 +1,3 @@
-# We want our examples...
-!*/bin/cmodule
-!*/bin/cmodule.cmd
 
 
 #include support/git/Processing.gitgore
@@ -581,6 +578,7 @@ FodyWeavers.xsd
 !/triplets/community
 !/triplets/community/**
 
+*.dll
 *.exe
 *.zip
 
