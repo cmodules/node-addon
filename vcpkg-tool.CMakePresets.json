@@ -13,11 +13,9 @@
             "name": "base",
             "hidden": true,
             "generator": "Ninja",
-            "binaryDir": "buildtrees/${presetName}",
+            "binaryDir": "buildtrees",
             "installDir": "${sourceDir}",
             "cacheVariables": {
-                "CMAKE_INSTALL_BINDIR": "${sourceDir}",
-                // "CMAKE_INSTALL_LIBDIR": "${sourceDir}"
                 "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}",
                 "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}"
             },
@@ -79,9 +77,9 @@
         {
             "name": "Windows",
             "hidden": true,
-            "toolchainFile": "scripts/toolchains/windows.cmake",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/toolchains/windows.cmake",
             "cacheVariables": {
-                "CMAKE_TOOLCHAIN_FILE": "scripts/toolchains/windows.cmake"
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/toolchains/windows.cmake"
             },
             "vendor": {
                 "microsoft.com/VisualStudioSettings/CMake/1.0": {
