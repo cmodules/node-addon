@@ -31,32 +31,35 @@
 		},
         {
             "name": "vcpkg-tool-nodejs",
-            "default-features": true
+            "default-features": false
         },
         {
             "name": "node-api-headers",
-            "default-features": true
+            "default-features":false
         },
         {
             "name": "node-addon-api",
+            "default-features": false
+        },
+        {
+            "name": "cmakerc",
             "default-features": true
         }
 	],
 
     "features": {
 
-        "c": {
+        "node-development": {
 
-            "description": "Build native NodeJS modules in C",
-            "dependencies": ["node-api-headers"]
+            "description": "Build native NodeJS modules in C/C++",
+            "dependencies": ["node-addon-api", "node-api-headers", "vcpkg-tool-nodejs"]
 
         },
 
-        "cpp": {
+        "cmrc": {
 
-            "description": "Build native NodeJS modules in C++",
-            "dependencies": ["node-addon-api"]
-
+            "description": "CMakeRC resource compiler",
+            "dependencies": ["cmakerc"]
         }
 
     }
