@@ -1,3 +1,9 @@
 [submodule "toolsrc"]
 	path = toolsrc
 	url = ../../cmodules/vcpkg-tool.git
+[submodule "projects/fmt"]
+	path = projects/fmt
+	url = ../../fmtlib/fmt.git
+[submodule "projects/cmrc"]
+	path = projects/cmrc
+	url = ../../vector-of-bool/cmrc
