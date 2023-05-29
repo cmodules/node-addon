@@ -5,9 +5,9 @@ include("./vcpkg-settings.cmake")
 setup_vcpkg()
 
 project(node-addon)
-include ("./projects/cmrc/CMakeRC.cmake")
-add_subdirectory(projects/cmrc/tests)
-add_subdirectory(projects/fmt)
+# include ("./projects/cmrc/CMakeRC.cmake")
+# add_subdirectory(projects/cmrc/tests)
+# add_subdirectory(projects/fmt)
 # add_subdirectory(toolsrc)
 # add_subdirectory(projects/resources)
 
