@@ -1,4 +1,9 @@
+.vcpkg
+/vcpkg
 
+fmt.dll
+libfmt.a
+libfmtd.a
 
 #include support/git/Processing.gitgore
 
